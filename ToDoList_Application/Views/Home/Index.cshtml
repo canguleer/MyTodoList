@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ToDoList_Application.Models.V_Todo>
+@using PagedList.Mvc;
+@using PagedList;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container pb-5">
+    <h2 style="text-align:center;">My Todo List</h2>
+    <p>
+        @Html.ActionLink("Yeni Ekle", "Create", null, new { @class = "btn btn-primary" })
+    </p>
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+
+            <th>  </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsDone)
+                </td>
+                <td>
+                    @item.Date.ToString("dd.MM.yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.status)
+                </td>
+                <td>
+                    @Html.ActionLink("Güncelle", "Update", "Home", new { id = item.Id }, new { @class = "btn btn-success" })
+
+                    @Html.ActionLink("Sil", "Delete", "Home", new { id = item.Id }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
+    </table>
+
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+</div>
+
+@section scripts{
+    <script>
+
+        $(function () {
+            setInterval(Alertbox, 1000);
+        });
+
+
+        function Alertbox() {
+            $.ajax({
+                url: '@Url.Action("GetAlert", "Home")',
+                async: false,
+                success: function (sonuc) {
+                    if (sonuc != "") {
+                        alert(sonuc);
+                    }
+                }
+            });
+        }
+
+    </script>
+}
+
+

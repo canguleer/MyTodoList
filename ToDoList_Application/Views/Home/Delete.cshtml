@@ -1,0 +1,75 @@
+﻿@model ToDoList_Application.Models.V_Todo
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container pb-5">
+    <h2 style="text-align:center;">Kayıt Silme</h2>
+
+    <h3>Kaydı Silmek istediğinize emin misiniz?</h3>
+    <div>
+
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsDone)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsDone)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Date)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Date)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Time)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Time)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.status)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.status)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm("DeleteData", "Home"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(Model => Model.Id)
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-danger" /> 
+            @Html.ActionLink("Geri Dön", "Index", null, new { @class = "btn btn-warning" })
+        </div>
+        }
+    </div>
+</div>
